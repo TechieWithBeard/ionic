@@ -5,7 +5,7 @@ import { Dish } from '../../shared/dish';
 import { IonApp} from '@ionic/angular';
 import { DishdetailPage } from '../dishdetail/dishdetail.page';
 import { DishService } from '../service/dish.service';
-
+import { FavouriteService } from '../service/favourite.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +20,7 @@ export class MenuPage implements OnInit {
 
   constructor(public navCtrl: NavController,
     private dishservice: DishService,
+    private favoriteservice: FavouriteService,
     @Inject('BaseURL') public BaseURL) { }
 
   ngOnInit() {
@@ -36,5 +37,10 @@ export class MenuPage implements OnInit {
     // That's right, we're pushing to ourselves!
     const dishid = dish.id;
     this.navCtrl.navigateForward('/dishdetail/' + dishid);
+  }
+
+  addToFavorites(dish: Dish) {
+    console.log('Adding to Favorites', dish.id);
+    this.favoriteservice.addFavorite(dish.id);
   }
 }
