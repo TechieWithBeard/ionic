@@ -8,29 +8,33 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DishService } from './service/dish.service';
+import { PromotionService } from './service/promotion.service';
+import { LeaderService } from './service/leader.service';
+import { ProcessHttpmsgService } from './service/process-httpmsg.service';
 
-import { HomePage } from './home/home.page';
-import { AboutPage } from './about/about.page';
-import { ContactPage } from './contact/contact.page';
-import { MenuPage } from './menu/menu.page';
+import { baseURL } from '../shared/baseurl';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
-  declarations: [AppComponent,
-                  HomePage,
-                  AboutPage,
-                  ContactPage,
-                  MenuPage],
+  declarations: [AppComponent],
 
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    DishService,
+    PromotionService,
+    LeaderService,
+    ProcessHttpmsgService,
+    { provide: 'BaseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]
 })

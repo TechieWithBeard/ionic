@@ -10,6 +10,7 @@ export class AboutionicPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('inside aboutionic');
   }
 
 }
