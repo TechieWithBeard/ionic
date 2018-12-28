@@ -16,6 +16,7 @@ import { ProcessHttpmsgService } from './service/process-httpmsg.service';
 import { baseURL } from '../shared/baseurl';
 import { HttpModule } from '@angular/http';
 import { ReservationPageModule } from './reservation/reservation.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,9 @@ import { ReservationPageModule } from './reservation/reservation.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpModule,
-    ReservationPageModule
+    ReservationPageModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,
