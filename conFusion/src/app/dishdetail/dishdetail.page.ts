@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DishService } from '../service/dish.service';
 import { FavouriteService } from '../service/favourite.service';
 import { ProcessHttpmsgService } from '../service/process-httpmsg.service';
+import { ActionSheetController, ModalController } from '@ionic/angular';
+import { CommentPage } from '../comment/comment.page';
 
 @Component({
   selector: 'app-dishdetail',
@@ -31,6 +33,8 @@ export class DishdetailPage implements OnInit {
       private favoriteservice: FavouriteService,
       private processHTTPMsgService: ProcessHttpmsgService,
       private toastCtrl: ToastController,
+      public actionSheetController: ActionSheetController,
+      public modalController: ModalController,
     @Inject('BaseURL') public BaseURL) {
    // let dishId = parseInt(this.route.snapshot.paramMap.get('id'), 2);
    this.dishId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -64,4 +68,57 @@ export class DishdetailPage implements OnInit {
       duration: 3000});
       await toast1.present();
   }
+
+
+
+
+  // action controler
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+        }
+      }, {
+        text: 'Share',
+        icon: 'share',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      }, {
+        text: 'Add Comment',
+        icon: 'create',
+        handler: async () => {
+          console.log('add comment clicked');
+
+    const modal = await this.modalController.create({
+      component: CommentPage,
+      componentProps: { value: 123 }
+    });
+    return await modal.present();
+
+        }
+      }, {
+        text: 'Favorite',
+        icon: 'heart',
+        handler: () => {
+          console.log('Favorite clicked');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+
 }

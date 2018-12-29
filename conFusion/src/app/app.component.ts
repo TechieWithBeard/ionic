@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ModalController } from '@ionic/angular';
 import { ReservationPageModule } from './reservation/reservation.module';
 import { ReservationPage } from './reservation/reservation.page';
+import { CommentPage } from '../app/comment/comment.page';
+import { LoginPage } from '../app/login/login.page';
 
 @Component({
   selector: 'app-root',
@@ -59,5 +61,10 @@ export class AppComponent {
 
     const modal = await this.modalCtrl.create({component: ReservationPage});
     await modal.present();
+  }
+
+  async openLogin() {
+    const modal = await this.modalCtrl.create({component: LoginPage});
+    modal.present();
   }
 }

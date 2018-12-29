@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>dishdetail</ion-title>
+    <ion-button slot="end" fill="clear" (click)="presentActionSheet()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -18,13 +21,13 @@
       </ion-card-content>
       <ion-row>
         <ion-col>
-          <ion-button icon-left clear small>
+          <ion-button start clear small>
             <ion-icon name="star"></ion-icon>
             <div>{{ avgstars }} stars</div>
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button icon-right clear small>
+          <ion-button end clear small>
             <ion-icon name="text"></ion-icon>
             <div>{{ numcomments }} Comments</div>
           </ion-button>
@@ -44,13 +47,23 @@
       <ion-list-header>
         Comments
       </ion-list-header>
-      <ion-item *ngFor="let comment of dish.comments" text-wrap>
-        <h4> {{comment.comment}} </h4>
-        <p> {{comment.rating}} Stars</p>
-        <p>
-          <span> -- {{comment.author}} {{comment.date | date }} </span>
-        </p>
+      <ion-item *ngFor="let comment of dish.comments">
+         <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{comment.author}} | {{comment.date | date }}</ion-card-subtitle>
+            <ion-card-title>{{comment.rating}} Stars</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+              {{comment.comment}}
+          </ion-card-content>
+        </ion-card>
       </ion-item>
+
+
+     
+
+
     </ion-list>
     
     <ion-fab  vertical="bottom" horizontal="end" slot="fixed" [hidden]="favorite">
