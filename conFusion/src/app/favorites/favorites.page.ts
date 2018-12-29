@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { NavController, NavParams} from '@ionic/angular';
+import { NavController, NavParams, ToastController} from '@ionic/angular';
 import { FavouriteService } from '../service/favourite.service';
 import { Dish } from '../../shared/dish';
-import { IonItemSliding } from '@ionic/angular';
+import { IonItemSliding , LoadingController, AlertController} from '@ionic/angular';
+import { async } from 'q';
+import { timeInterval } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -15,8 +18,11 @@ export class FavoritesPage implements OnInit {
   favorites: Dish[];
   errMess: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,
     private favoriteservice: FavouriteService,
+    public toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
     @Inject('BaseURL') public BaseURL) { }
 
   ngOnInit() {
@@ -28,12 +34,44 @@ export class FavoritesPage implements OnInit {
     console.log('ionViewDidLoad FavoritesPage');
   }
 
-  deleteFavorite(item: IonItemSliding, id: number) {
+  async deleteFavorite(item: IonItemSliding, id: number) {
     console.log('delete', id);
-    this.favoriteservice.deleteFavorite(id)
-      .subscribe(favorites => this.favorites = favorites,
-        errmess => this.errMess = errmess);
-    item.close();
+   // this.favoriteservice.deleteFavorite(id)
+   // .subscribe(favorites => this.favorites = favorites);
+  //    .subscribe(favorites => this.favorites = favorites,
+  //      errmess => this.errMess = errmess);
+  //  item.close();
+      // code for alert
+    const alert1 = await this.alertCtrl.create({
+      header: 'Confirm Delete',
+      message: 'Do you want to delete Dish ' + id,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Delete cancelled');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: async() => {
+            const loading = await this.loadingCtrl.create({
+              message: 'Deleting . . .'
+            });
+            const toast3 = await this.toastCtrl.create({
+              message: 'Dish ' + id + ' deleted successfully',
+              duration: 3000});
+            await loading.present();
+            this.favoriteservice.deleteFavorite(id)
+              .subscribe(favorites => {this.favorites = favorites; loading.dismiss(); toast3.present(); } ,
+                errmess => { this.errMess = errmess; loading.dismiss(); });
+          }
+        }
+      ]
+    });
 
+    return await alert1.present();
+    item.close();
   }
 }

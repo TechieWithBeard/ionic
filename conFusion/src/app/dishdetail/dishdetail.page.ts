@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject  } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController  } from '@ionic/angular';
 import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +30,7 @@ export class DishdetailPage implements OnInit {
       private dishservice: DishService,
       private favoriteservice: FavouriteService,
       private processHTTPMsgService: ProcessHttpmsgService,
+      private toastCtrl: ToastController,
     @Inject('BaseURL') public BaseURL) {
    // let dishId = parseInt(this.route.snapshot.paramMap.get('id'), 2);
    this.dishId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -41,8 +42,7 @@ export class DishdetailPage implements OnInit {
    //  let total = 0;
    //  this.dish.comments.forEach(comment => total += comment.rating );
    //  this.avgstars = (total / this.numcomments).toFixed(2);
-
-     }
+    }
 
   ngOnInit() {
     this.dishservice.getDish(this.dishId)
@@ -55,8 +55,13 @@ export class DishdetailPage implements OnInit {
     console.log('ionViewDidLoad DishdetailPage');
   }
 
-  addToFavorites() {
+  async addToFavorites() {
     console.log('Adding to Favorites', this.dish.id);
     this.favorite = this.favoriteservice.addFavorite(this.dish.id);
+      const toast1 = await this.toastCtrl.create({
+      message: 'Dish ' + this.dish.id + ' added as favorite successfully',
+      position: 'middle',
+      duration: 3000});
+      await toast1.present();
   }
 }

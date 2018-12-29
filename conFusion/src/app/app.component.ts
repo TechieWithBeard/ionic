@@ -32,6 +32,11 @@ export class AppComponent {
       title: 'About',
       url: '/about',
       icon: 'information-circle'
+    },
+    {
+      title: 'Favourite',
+      url: '/favorites',
+      icon: 'heart'
     }
 
   ];
