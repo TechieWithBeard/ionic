@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 
 @Component({
   selector: 'app-contact',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactPage implements OnInit {
 
-  constructor() { }
+  constructor(private emailComposer: EmailComposer) { }
 
   ngOnInit() {
+  }
+  sendEmail() {
+
+    const email = {
+      to: 'confusion@food.net',
+      subject: '[ConFusion]: Query',
+      body: 'Dear Sir/Madam:',
+      isHtml: true
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(email);
   }
 
 }

@@ -22,7 +22,11 @@ import { CommentPageModule } from '../app/comment/comment.module';
 import {DatePipe} from '@angular/common';
 import { LoginPageModule } from '../app/login/login.module';
 import { IonicStorageModule } from '@ionic/storage';
+
+
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,6 +55,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     DatePipe,
     ProcessHttpmsgService,
     LocalNotifications,
+    EmailComposer,
     { provide: 'BaseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]
