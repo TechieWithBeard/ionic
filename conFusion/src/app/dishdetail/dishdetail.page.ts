@@ -8,6 +8,7 @@ import { FavouriteService } from '../service/favourite.service';
 import { ProcessHttpmsgService } from '../service/process-httpmsg.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { CommentPage } from '../comment/comment.page';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-dishdetail',
@@ -35,6 +36,7 @@ export class DishdetailPage implements OnInit {
       private toastCtrl: ToastController,
       public actionSheetController: ActionSheetController,
       public modalController: ModalController,
+      private localNotifications: LocalNotifications,
     @Inject('BaseURL') public BaseURL) {
    // let dishId = parseInt(this.route.snapshot.paramMap.get('id'), 2);
    this.dishId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -67,6 +69,11 @@ export class DishdetailPage implements OnInit {
       position: 'middle',
       duration: 3000});
       await toast1.present();
+      // Schedule a single notification
+          this.localNotifications.schedule({
+            id: this.dish.id,
+            text: 'Dish ' + this.dish.id + ' added as a favorite successfully'
+          });
   }
 
 

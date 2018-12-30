@@ -6,7 +6,7 @@ import { Dish } from '../../shared/dish';
 import { IonItemSliding , LoadingController, AlertController} from '@ionic/angular';
 import { async } from 'q';
 import { timeInterval } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs-compat/Observable';
 
 
 @Component({
