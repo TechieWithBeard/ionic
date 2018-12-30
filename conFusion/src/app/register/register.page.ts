@@ -11,7 +11,7 @@ import {Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular
 export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
-  image = 'assets/images/logo.png';
+  public base64Image;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private viewCtrl: ModalController,
     private camera: Camera,
@@ -35,7 +35,7 @@ export class RegisterPage implements OnInit {
   }
 
   getPicture() {
-    const options: CameraOptions = {
+  /*  const options: CameraOptions = {
       quality: 100,
       targetHeight: 100,
       targetWidth: 100,
@@ -46,14 +46,22 @@ export class RegisterPage implements OnInit {
       mediaType: this.camera.MediaType.PICTURE,
       cameraDirection: this.camera.Direction.FRONT
     };
+*/
 
-    this.camera.getPicture(options).then((imageData) => {
+            const options: CameraOptions = {
+              quality: 100,
+              destinationType: this.camera.DestinationType.FILE_URI,
+              encodingType: this.camera.EncodingType.JPEG,
+              mediaType: this.camera.MediaType.PICTURE
+            };
 
-      this.image = imageData;
-      console.log(imageData);
-    }, (err) => {
-        console.log('Error obtaining picture');
-    });
+            this.camera.getPicture(options).then((imageData) => {
+            // imageData is either a base64 encoded string or a file URI
+            // If it's base64 (DATA_URL):
+            this.base64Image = 'data:image/jpeg;base64,' + imageData;
+            }, (err) => {
+            // Handle error
+            });
   }
 
   onSubmit() {
