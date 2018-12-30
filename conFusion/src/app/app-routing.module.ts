@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'favorites', loadChildren: './favorites/favorites.module#FavoritesPageModule' },
   { path: 'reservation', loadChildren: './reservation/reservation.module#ReservationPageModule' },
   { path: 'comment', loadChildren: './comment/comment.module#CommentPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' }
 ];
 
 @NgModule({

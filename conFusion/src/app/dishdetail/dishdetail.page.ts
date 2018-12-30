@@ -94,7 +94,7 @@ export class DishdetailPage implements OnInit {
         }
       }, {
         text: 'Share via Facebook',
-        icon: 'facebook',
+        icon: 'logo-facebook',
         handler: () => {
           this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
             .then(() => console.log('Posted successfully to Facebook'))
@@ -103,7 +103,7 @@ export class DishdetailPage implements OnInit {
       },
       {
         text: 'Share via Twitter',
-        icon: 'twitter',
+        icon: 'logo-twitter',
         handler: () => {
           this.socialSharing.shareViaTwitter(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
             .then(() => console.log('Posted successfully to Twitter'))

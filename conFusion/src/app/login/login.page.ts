@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController} from '@ionic/angular';
 import {Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { User } from '../../shared/user';
+import { RegisterPage } from '../register/register.page';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ModalController,
     private formBuilder: FormBuilder,
+    private modalCtrl: ModalController,
     private storage: Storage) {
 
       storage.get('user').then(user => {
@@ -63,5 +65,15 @@ export class LoginPage {
       this.viewCtrl.dismiss();
 
     }
+
+
+    async openRegister() {
+      const modal = await this.modalCtrl.create({component: RegisterPage});
+      modal.present();
+     // modal.onDidDismiss(() => this.dismiss())
+     modal.onDidDismiss();
+     this.dismiss();
+    }
+
 
 }

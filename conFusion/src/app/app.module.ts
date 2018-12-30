@@ -27,7 +27,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-
+import { RegisterPageModule } from '../app/register/register.module';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,6 +45,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     LoginPageModule,
     ReservationPageModule,
     CommentPageModule,
+    RegisterPageModule,
     IonicStorageModule.forRoot()
   ],
   providers: [
@@ -58,6 +60,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     LocalNotifications,
     EmailComposer,
     SocialSharing,
+    Camera,
     { provide: 'BaseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]
