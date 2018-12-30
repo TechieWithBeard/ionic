@@ -9,6 +9,7 @@ import { ProcessHttpmsgService } from '../service/process-httpmsg.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { CommentPage } from '../comment/comment.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-dishdetail',
@@ -37,6 +38,7 @@ export class DishdetailPage implements OnInit {
       public actionSheetController: ActionSheetController,
       public modalController: ModalController,
       private localNotifications: LocalNotifications,
+      private socialSharing: SocialSharing,
     @Inject('BaseURL') public BaseURL) {
    // let dishId = parseInt(this.route.snapshot.paramMap.get('id'), 2);
    this.dishId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -91,10 +93,21 @@ export class DishdetailPage implements OnInit {
           console.log('Delete clicked');
         }
       }, {
-        text: 'Share',
-        icon: 'share',
+        text: 'Share via Facebook',
+        icon: 'facebook',
         handler: () => {
-          console.log('Share clicked');
+          this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+            .then(() => console.log('Posted successfully to Facebook'))
+            .catch(() => console.log('Failed to post to Facebook'));
+        }
+      },
+      {
+        text: 'Share via Twitter',
+        icon: 'twitter',
+        handler: () => {
+          this.socialSharing.shareViaTwitter(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+            .then(() => console.log('Posted successfully to Twitter'))
+            .catch(() => console.log('Failed to post to Twitter'));
         }
       }, {
         text: 'Add Comment',

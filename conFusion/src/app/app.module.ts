@@ -26,6 +26,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
     ProcessHttpmsgService,
     LocalNotifications,
     EmailComposer,
+    SocialSharing,
     { provide: 'BaseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]
